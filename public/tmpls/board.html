@@ -1,0 +1,10 @@
+<div class="container">
+  <table class="table table-condensed table-striped">
+    <tr ng-repeat="ticTacRow in vm.theBoard track by $index">
+      <td ng-repeat="column in ticTacRow track by $index">
+        {{ column }}
+      </td>
+    </tr>
+  </table>
+  <button class="btn btn-default" ng-click="vm.makeYourMove()">Move</button>
+</div>

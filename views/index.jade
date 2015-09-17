@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    include ./includes/bower_bootstrap.jade
+    title Hello world!
+  body
+    h1 Hello fellow citizens!
+
+    form(name="game", action="/game", method="post")
+      input(type="text", name="username")
+      input(type="submit")
