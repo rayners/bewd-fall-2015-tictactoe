@@ -12,6 +12,9 @@
     "body-parser": "^1.14.0",
     "bower": "^1.5.2",
     "express": "^4.13.3",
-    "jade": "^1.11.0"
+    "jade": "^1.11.0",
+    "sequelize": "^3.9.0",
+    "sequelize-cli": "^1.9.1",
+    "sqlite3": "^3.1.0"
   }
 }

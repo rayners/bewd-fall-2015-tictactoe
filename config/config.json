@@ -1,0 +1,12 @@
+{
+    "development": {
+        "storage": "store/tictactoe.db",
+        "dialect": "sqlite"
+    },
+    "test": {
+        "dialect": "sqlite"
+    },
+    "production": {
+        "dialect": "sqlite"
+    }
+}
