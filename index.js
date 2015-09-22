@@ -44,7 +44,9 @@ app.post('/games', function(req, res) {
             res.redirect('/games/' + board.id);
         })
         .catch(function(errors) {
-            res.send(JSON.stringify(errors))
+          models.Board.findAll().then(function(boards) {
+            res.render('games', { boards: boards, errors: errors });
+          });
         });
 });
 
