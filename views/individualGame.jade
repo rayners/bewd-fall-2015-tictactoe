@@ -1,0 +1,9 @@
+doctype html
+html(lang="en" ng-app="bewd.tictactoe.board")
+  head
+    include ./includes/bower_bootstrap.jade
+    title Game ##{board.id}
+  body
+    .container
+      h1 Game ##{board.id}
+      tic-tac-toe-board(the-board="#{JSON.stringify(board.board)}")
