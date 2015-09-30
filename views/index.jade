@@ -4,7 +4,12 @@ block title
   title Hello world!
 
 block content
-  h1 Hello fellow citizens!
+  h1 
+    | Hello 
+    if currentUser
+      = currentUser.username
+    else
+      | fellow citizens!
     
   form(name="game", action="/game", method="post")
     input(type="text", name="username")

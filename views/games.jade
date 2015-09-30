@@ -1,20 +1,19 @@
-doctype html
-html(lang="en" ng-app="bewd.tictactoe.board")
-  head
-    include ./includes/bower_bootstrap.jade
-    title All the games!
-  body
-    .container
-      h1 All the games!
-      ul
-        each board in boards
-          li
-            a(href="/games/#{board.id}") Game ##{board.id}
+extends ./layout.jade
+
+block title
+  title All the games!
+
+block content
+  h1 All the games!
+  ul
+    each board in boards
+      li
+        a(href="/games/#{board.id}") Game ##{board.id}
       
-      if errors
-        p.text-danger= errors.message
-      form(name="newGame" method="post" action="/games")
-        .form-group
-          label New Board Config
-          input.form-control(type="text" name="board")
-        button.btn.btn-default(type="submit") Create!
+  if errors
+    p.text-danger= errors.message
+  form(name="newGame" method="post" action="/games")
+    .form-group
+      label New Board Config
+      input.form-control(type="text" name="board")
+    button.btn.btn-default(type="submit") Create!

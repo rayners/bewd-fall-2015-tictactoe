@@ -2,6 +2,17 @@
 var express = require('express');
 var app = express.Router();
 
+app.use(function(req, res, next) {
+  if (req.session.user_id) {
+    models.User.findById(req.session.user_id).then(function(user) {
+      req.currentUser = res.locals.currentUser = user;
+      next();
+    });
+  } else {
+    next();
+  }
+});
+
 app.get('/', function(req, res) {
   res.render('index');
 });
