@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-require('express-debug')(app, {});
+// require('express-debug')(app, {});
 
 app.use('/bower_components',
   express.static(__dirname + '/bower_components'));
