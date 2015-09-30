@@ -36,6 +36,8 @@ app.use(session({
   store: store
 }));
 
+app.use(require('flash')());
+
 app.use(require('morgan')('dev'));
 
 app.set('view engine', 'jade');
@@ -60,7 +62,13 @@ var models = require('./models');
 
 app.get('/games', function(req, res) {
     models.Board.findAll().then(function(boards) {
-      res.render('games', { boards: boards });
+      if (req.session.user_id) {
+        models.User.findById(req.session.user_id).then(function(user) {
+          res.render('games', { boards: boards, user: user });
+        })
+      } else {
+        res.render('games', { boards: boards });
+      }
     });
 });
 
@@ -80,6 +88,32 @@ app.post('/games', function(req, res) {
             res.render('games', { boards: boards, errors: errors });
           });
         });
+});
+
+// User registration
+app.get('/register', function(req, res) {
+  res.render('register');
+});
+
+app.post('/register', function(req, res) {
+  // Does the user exist already?
+  models.User.find({ where: { username: req.body.username }})
+    .then(function(user) {
+        if (user) {
+          req.flash('warning', "Username already exists");
+          req.session.save(function() {
+            res.redirect('/register');
+          });
+        } else {
+          models.User.create(req.body)
+            .then(function(newUser) {
+              req.session.user_id = newUser.id;
+              req.session.save(function() {
+                res.redirect('/games');
+              });
+            });
+        }
+    });
 });
 
 var server = app.listen(3000, function() {

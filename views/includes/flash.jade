@@ -1,0 +1,5 @@
+if flash
+  .container
+    while message = flash.shift()
+      div.alert(class='alert-' + message.type)
+        p= message.message
