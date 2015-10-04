@@ -33,9 +33,7 @@ var models = require('./models');
 
 app.use('/games', require('./routes/games'));
 
-app.get('/login', function(req, res) {
-  res.render('login');
-});
+app.use('/login', require('./routes/login'));
 
 // User registration
 app.get('/register', function(req, res) {
