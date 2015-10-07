@@ -32,6 +32,9 @@ angular.module('bewd.tictactoe.board').
   }]).
   controller('BoardsController', ['boardService', '$interval', '$log', function(boardService, $interval, $log) {
     var vm = this;
+    vm.selectBoard = function selectBoard(board) {
+      vm.selectedBoard = board;
+    };
 
     function loadBoards() {
       boardService.getBoards().then(function(boards) {
@@ -42,4 +45,5 @@ angular.module('bewd.tictactoe.board').
 
     loadBoards();
     $interval(loadBoards, 10000);
+
   }]);

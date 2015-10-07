@@ -12,9 +12,14 @@ block content
         a(href="/games/#{board.id}") Game ##{board.id}
   
   p All the boards
-  ul(ng-controller="BoardsController as boards")
-    li(ng-repeat="board in boards.boards track by board.id")
-      a(href="/games/{{ board.id }}") Game {{ '#' + board.id }}
+  div(ng-controller="BoardsController as boards")
+    ul
+      li(ng-repeat="board in boards.boards track by board.id")
+        a(ng-click="boards.selectBoard(board)") Game {{ '#' + board.id }}
+  
+    div(ng-show="boards.selectedBoard")
+      p Game {{ '#' + boards.selectedBoard.id }}
+      tic-tac-toe-board(the-board="boards.selectedBoard.board")
   
   if errors
     p.text-danger= errors.message
