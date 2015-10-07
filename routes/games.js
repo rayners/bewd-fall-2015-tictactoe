@@ -22,7 +22,14 @@ app.param('format', function checkFormat(req, res, next, param) {
 
 app.get('/', function(req, res) {
     Board.findAll().then(function(boards) {
-        res.render('games', { boards: boards });
+      res.format({
+          html: function() {
+            res.render('games', { boards: boards });
+          },
+          json: function() {
+            res.json(boards);
+          }
+      })
     });
 });
 

@@ -5,11 +5,17 @@ block title
 
 block content
   h1 All the games!
+  p Existing boards
   ul
     each board in boards
       li
         a(href="/games/#{board.id}") Game ##{board.id}
-      
+  
+  p All the boards
+  ul(ng-controller="BoardsController as boards")
+    li(ng-repeat="board in boards.boards track by board.id")
+      a(href="/games/{{ board.id }}") Game {{ '#' + board.id }}
+  
   if errors
     p.text-danger= errors.message
   form(name="newGame" method="post" action="/games")
