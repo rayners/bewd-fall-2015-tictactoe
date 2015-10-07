@@ -33,6 +33,7 @@ var models = require('./models');
 
 app.use('/games', require('./routes/games'));
 
+app.use('/users', require('./routes/users'));
 app.use('/login', require('./routes/login'));
 
 // User registration

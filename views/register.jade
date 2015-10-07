@@ -7,10 +7,25 @@ block content
   h1 Register for Tic Tac Toe!
       
   form(name="register", action="/register", method="post")
-    .form-group
-      label Username
-      input.form-control(type="text", name="username")
-    .form-group
-      label Password
-      input.form-control(type="password", name="password")
+    .form-group(ng-class="{ 'has-error': register.username.$invalid && register.username.$dirty }")
+      label.control-label Username
+      input.form-control(type="text", name="username", required, ng-model="username", unique-username)
+      
+      {{ register.username.$error }}
+      div(ng-if="register.username.$dirty")
+        .alert.alert-warning(ng-if="register.username.$error.required")
+          p Username is required.
+        
+    .form-group(ng-class="{ 'has-error': register.email.$invalid && register.email.$dirty }")
+      label.control-label Email Address
+      input.form-control(type="email", name="email", required, ng-model="email", ng-model-options="{ updateOn: 'default blur', debounce: { blur: 0, default: 500 } }")
+
+      div(ng-if="register.email.$dirty && register.email.$error")
+        .alert.alert-danger(ng-messages="register.email.$error")
+          p(ng-message="required") Email is required.
+          p(ng-message="email") Email address must be an email address.
+
+    .form-group(ng-class="{ 'has-error': register.password.$invalid && register.password.$dirty }")
+      label.control-label Password
+      input.form-control(type="password", name="password", required, ng-model="password")
     button.btn.btn-default(type="submit") Register!
