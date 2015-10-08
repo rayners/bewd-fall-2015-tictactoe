@@ -5,8 +5,12 @@ var Board = require('../models').Board;
 
 app.param('game_id', function(req, res, next) {
   Board.findById(req.params.game_id).then(function(b) {
-    req.board = res.locals.board = b;
-    next();
+    if (b) {
+      req.board = res.locals.board = b;
+      next();
+    } else {
+      res.status(404).send('Game not found');
+    }
   });
 });
 
@@ -58,6 +62,20 @@ app.post('/', function(req, res) {
             res.render('games', { boards: boards, errors: errors });
           });
         });
+});
+
+app.put('/:game_id', function(req, res) {
+  req.board.set('board', req.body.board);
+  req.board.save().then(function(board) {
+    res.format({
+      html: function() {
+        res.redirect('/games/' + board.id);
+      },
+      json: function() {
+        res.json(board);
+      }
+    })
+  })
 });
 
 module.exports = app;
