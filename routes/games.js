@@ -64,7 +64,7 @@ app.post('/', function(req, res) {
         });
 });
 
-app.put('/:game_id', function(req, res) {
+app.post('/:game_id', function(req, res) {
   req.board.set('board', req.body.board);
   req.board.save().then(function(board) {
     res.format({

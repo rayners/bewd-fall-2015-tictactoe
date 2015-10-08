@@ -6,3 +6,9 @@ block title
 block content
   h1 Game ##{board.id}
   tic-tac-toe-board(the-board="#{JSON.stringify(board.board)}")
+
+  form(action='/games/#{board.id}', method="post")
+    .form-group
+      label.control-label New Game state
+      input.form-control(type="text", name="board", value="#{board.board.map(function(b) { return b.join(''); }).join('')}")
+    button.btn.btn-success(type="submit") Update board
