@@ -27,6 +27,12 @@ angular.module('bewd.tictactoe.board').
           then(function(response) {
             return response.data;
           });
+      },
+      getBoard: function(id) {
+        return $http.get('/games/' + id).
+          then(function(response) {
+            return response.data;
+          });
       }
     };
   }]).
