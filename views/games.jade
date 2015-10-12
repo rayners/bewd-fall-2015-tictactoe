@@ -32,7 +32,4 @@ block content
   if errors
     p.text-danger= errors.message
   form(name="newGame" method="post" action="/games")
-    .form-group
-      label New Board Config
-      input.form-control(type="text" name="board")
     button.btn.btn-default(type="submit") Create!

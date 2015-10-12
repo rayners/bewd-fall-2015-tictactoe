@@ -59,8 +59,9 @@ app.get('/:game_id/players', function(req, res) {
   res.render('gamePlayers');
 })
 
+// create a fresh new game
 app.post('/', function(req, res) {
-    Board.create({ board: req.body.board })
+    Board.create({ board: '         ' })
         .then(function(board) {
             res.redirect('/games/' + board.id);
         })
@@ -88,14 +89,19 @@ app.post('/:game_id', function(req, res) {
 app.post('/:game_id/join', function(req, res) {
   if (!req.currentUser) {
     res.flash('warning', 'You need to be logged in to join a game');
+    res.redirect('/games/' + req.board.id);
   } else {
+    console.log('Adding user ' + req.currentUser.username + ' to game #' + req.board.id);
     if (req.body.asX) {
-      req.board.setXPlayer(req.currentUser);
+      req.board.setXPlayer(req.currentUser).then(function() {
+        // render something
+      })
     } else {
-      req.board.setOPlayer(req.currentUser);
+      req.board.setOPlayer(req.currentUser).then(function() {
+        // render something
+      });
     }
   }
-  // render something
 });
 
 module.exports = app;
