@@ -7,6 +7,11 @@ block content
   h1 Game ##{board.id}
   tic-tac-toe-board(the-board="#{JSON.stringify(board.board)}")
 
+  if currentUser && board.isOpenForJoining()
+    //- render buttons or something
+  else
+    p Game is full
+
   form(action='/games/#{board.id}', method="post")
     .form-group
       label.control-label New Game state

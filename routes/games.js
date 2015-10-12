@@ -86,12 +86,16 @@ app.post('/:game_id', function(req, res) {
 });
 
 app.post('/:game_id/join', function(req, res) {
-  if (req.body.asX) {
-    req.board.setXPlayer(req.currentUser);
+  if (!req.currentUser) {
+    res.flash('warning', 'You need to be logged in to join a game');
   } else {
-    req.board.setOPlayer(req.currentUser);
+    if (req.body.asX) {
+      req.board.setXPlayer(req.currentUser);
+    } else {
+      req.board.setOPlayer(req.currentUser);
+    }
   }
-  // return something
+  // render something
 });
 
 module.exports = app;
