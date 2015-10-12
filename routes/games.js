@@ -37,6 +37,13 @@ app.get('/', function(req, res) {
     });
 });
 
+app.get('/available', function(req, res) {
+  Board.scope('available').findAll().then(function(boards) {
+    res.render('games', { title: "Available Games",
+                          boards: boards });
+  })
+});
+
 app.get('/:game_id.:format?', function(req, res) {
   res.format({
       html: function() {
@@ -76,6 +83,15 @@ app.post('/:game_id', function(req, res) {
       }
     })
   })
+});
+
+app.post('/:game_id/join', function(req, res) {
+  if (req.body.asX) {
+    req.board.setXPlayer(req.currentUser);
+  } else {
+    req.board.setOPlayer(req.currentUser);
+  }
+  // return something
 });
 
 module.exports = app;

@@ -26,7 +26,41 @@ module.exports = function(sequelize, DataTypes) {
   {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        Board.belongsTo(models.User, { as: 'XPlayer', foreignKey: 'xPlayerId' });
+        Board.belongsTo(models.User, { as: 'OPlayer', foreignKey: 'oPlayerId' });
+      }
+    },
+    instanceMethods: {
+      isOpenForJoining: function() {
+        return !this.xPlayerId || !this.oPlayerId;
+      }
+    },
+    scopes: {
+      withUsers: function() {
+        return {
+          include: [
+            { association: Board.associations.XPlayer },
+            { association: Board.associations.OPlayer }
+          ]
+        };
+      },
+      available: {
+        where: {
+          $or: [
+            { xPlayerId: null },
+            { oPlayerId: null }
+          ]
+        }
+      },
+      forUser: function(u) {
+        return {
+          where: {
+            $or: [
+              { xPlayerId: u.id },
+              { oPlayerId: u.id }
+            ]
+          }
+        }
       }
     }
   });
