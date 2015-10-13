@@ -8,6 +8,12 @@ html(ng-app="bewd.tictactoe")
 
   body
     include ./includes/flash.jade
+    include ./mixins/forLoggedInUser.jade
+    +forLoggedInUser
+      .container
+        .alert.alert-info
+          p You are currently logged in as #{currentUser.username}
+    
     .container
       .well
         block content
