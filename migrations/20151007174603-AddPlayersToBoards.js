@@ -2,12 +2,12 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    queryInterface.addColumn('Boards', 'xPlayerId', Sequelize.INTEGER);
-    queryInterface.addColumn('Boards', 'oPlayerId', Sequelize.INTEGER);
+    queryInterface.addColumn('boards', 'xPlayerId', Sequelize.INTEGER);
+    queryInterface.addColumn('boards', 'oPlayerId', Sequelize.INTEGER);
   },
 
   down: function (queryInterface) {
-    queryInterface.removeColumn('Boards', 'xPlayerId');
-    queryInterface.removeColumn('Boards', 'oPlayerId');
+    queryInterface.removeColumn('boards', 'xPlayerId');
+    queryInterface.removeColumn('boards', 'oPlayerId');
   }
 };
