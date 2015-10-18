@@ -24,13 +24,17 @@ app.post('/', function(req, res) {
           req.session.save(function() {
             res.redirect('/games')
           });
-        } else {
-          req.flash('warning', 'Bad password. Try ' + user.password + ' instead.')
-          res.redirect('/login');
+        } else { // user.password === req.body.password
+          req.flash('warning', 'Bad password. Try ' + user.password + ' instead.');
+          req.session.save(function() {
+            res.redirect('/login');
+          });
         }
-      } else {
+      } else { // user
         req.flash('warning', 'Username unknown');
-        res.redirect('/login');
+        req.session.save(function() {
+          res.redirect('/login');
+        });
       }
     });
 });
