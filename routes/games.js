@@ -84,7 +84,21 @@ app.post('/:game_id', function(req, res) {
       }
     })
   })
+  .catch(function(error) {
+    res.format({
+      html: function() {
+        res.flash('error', error.message);
+        req.session.save(function() {
+          res.redirect('/games/' + req.board.id);
+        });
+      },
+      json: function() {
+        res.json(error);
+      }
+    });
+  });
 });
+
 
 app.post('/:game_id/join', function(req, res) {
   if (!req.currentUser) {
