@@ -24,6 +24,8 @@
     "jade": "^1.11.0",
     "lodash": "^3.10.1",
     "morgan": "^1.6.1",
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^3.9.0",
     "sequelize-cli": "^1.9.1",
     "sqlite3": "^3.1.0"

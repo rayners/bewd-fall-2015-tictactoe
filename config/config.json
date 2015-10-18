@@ -7,6 +7,6 @@
         "dialect": "sqlite"
     },
     "production": {
-        "dialect": "sqlite"
+        "use_env_variable": "DATABASE_URL"
     }
 }
