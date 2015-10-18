@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "bower install",
+    "postinstall": "./node_modules/.bin/bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
