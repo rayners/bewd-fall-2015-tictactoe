@@ -16,13 +16,14 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 app.use(cookieParser());
-
 if (process.env.REDIS_URL) {
   var RedisStore = require('connect-redis')(session);
 
   app.use(session({
     store: new RedisStore({ url: process.env.REDIS_URL }),
-    secret: 'I see undead people'
+    secret: 'I see undead people',
+    saveUninitialized: false,
+    resave: false
   }));
 } else {
   var Sequelize = require('sequelize');
@@ -45,7 +46,6 @@ if (process.env.REDIS_URL) {
     store: store
   }));
 }
-
 
 app.use(require('flash')());
 
