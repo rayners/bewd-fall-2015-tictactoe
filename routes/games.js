@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express.Router();
 
-var Board = require('../models').Board;
+var Board = require('../models').board;
 
 app.param('game_id', function(req, res, next) {
   Board.findById(req.params.game_id).then(function(b) {

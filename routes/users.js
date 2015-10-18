@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-var User = require('../models').User;
+var User = require('../models').user;
 
 router.get('/usernameExists', function(req, res) {
   User.findOne({ where: { username: req.query.username }})
