@@ -15,27 +15,37 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
-var Sequelize = require('sequelize');
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
-
-var sequelize = new Sequelize(
-  "database",
-  "username",
-  "password", {
-    "dialect": "sqlite",
-    "storage": "./store/session.sqlite"
-  });
-
-var store = new SequelizeStore({ db: sequelize });
-store.sync();
-
 app.use(cookieParser());
-app.use(session({
-  saveUninitialized: false,
-  resave: false,
-  secret: 'I see dead people',
-  store: store
-}));
+
+if (process.env.REDIS_URL) {
+  var RedisStore = require('connect-redis')(session);
+
+  app.use(session({
+    store: new RedisStore({ url: process.env.REDIS_URL }),
+    secret: 'I see undead people'
+  }));
+} else {
+  var Sequelize = require('sequelize');
+  var SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+  var sequelize = new Sequelize(
+    "database",
+    "username",
+    "password", {
+      "dialect": "sqlite",
+      "storage": "./store/session.sqlite"
+    });
+
+  var store = new SequelizeStore({ db: sequelize });
+  store.sync();
+  app.use(session({
+    saveUninitialized: false,
+    resave: false,
+    secret: 'I see dead people',
+    store: store
+  }));
+}
+
 
 app.use(require('flash')());
 
