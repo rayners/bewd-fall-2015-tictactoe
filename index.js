@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
 
-// require('express-debug')(app, {});
+// configuration from Heroku
+app.set('port', process.env.PORT || 3000);
 
 app.use('/bower_components',
   express.static(__dirname + '/bower_components'));
@@ -44,7 +45,7 @@ app.set('view engine', 'jade');
 
 app.use(require('./routes'))
 
-var server = app.listen(3000, function() {
+var server = app.listen(app.get('port'), function() {
   var host = server.address().address;
   var port = server.address().port;
 
