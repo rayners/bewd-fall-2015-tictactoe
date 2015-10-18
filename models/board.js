@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var Board = sequelize.define('board', {
+  var Board = sequelize.define('Board', {
       board: {
           type: DataTypes.STRING,
           get: function() {
