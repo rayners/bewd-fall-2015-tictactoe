@@ -3,10 +3,15 @@ var express = require('express');
 var app = express.Router();
 
 app.use(function(req, res, next) {
+  req.isAuthenticated = function() {
+    return !!req.currentUser;
+  };
   if (req.session.user_id) {
-    models.User.findById(req.session.user_id).then(function(user) {
-      console.log("User logged in as " + user.username);
-      req.currentUser = res.locals.currentUser = user;
+    models.user.findById(req.session.user_id).then(function(user) {
+      if (user) {
+        console.log("User logged in as " + user.username);
+        req.currentUser = res.locals.currentUser = user;
+      }
       next();
     });
   } else {
@@ -44,7 +49,7 @@ app.get('/register', function(req, res) {
 
 app.post('/register', function(req, res) {
   // Does the user exist already?
-  models.User.find({ where: { username: req.body.username }})
+  models.user.find({ where: { username: req.body.username }})
     .then(function(user) {
         if (user) {
           req.flash('warning', "Username already exists");
@@ -52,7 +57,7 @@ app.post('/register', function(req, res) {
             res.redirect('/register');
           });
         } else {
-          models.User.create(req.body)
+          models.user.create(req.body)
             .then(function(newUser) {
               req.session.user_id = newUser.id;
               req.session.save(function() {
