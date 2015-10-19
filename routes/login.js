@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express.Router();
 
-var User = require('../models').User;
+var User = require('../models').user;
 
 app.get('/', function(req, res) {
   if (req.currentUser) {
