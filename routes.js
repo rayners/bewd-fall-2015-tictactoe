@@ -19,6 +19,9 @@ app.use(function(req, res, next) {
   }
 });
 
+var roles = require('./roles');
+app.use(roles.middleware({ userProperty: 'currentUser' }));
+
 app.get('/', function(req, res) {
   res.render('index');
 });
@@ -41,6 +44,7 @@ app.use('/games', require('./routes/games'));
 
 app.use('/users', require('./routes/users'));
 app.use('/login', require('./routes/login'));
+app.use('/admin', require('./routes/admin'));
 
 // User registration
 app.get('/register', function(req, res) {
