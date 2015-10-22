@@ -21,18 +21,18 @@ function sendUserVerificationEmail(user) {
     }
   };
 
-var txResponseHandler = function txResponseHandler(err, data) {
-  if(err) {
-    console.error('ERROR: ', err);
-    new Error(err);
-  } else {
-    console.log('WOOHOO, Transmission accepted by SparkPost!');
-    console.log(data);
-  }
-};
+  var txResponseHandler = function txResponseHandler(err, data) {
+    if(err) {
+      console.error('ERROR: ', err);
+      new Error(err);
+    } else {
+      console.log('WOOHOO, Transmission accepted by SparkPost!');
+      console.log(data);
+    }
+  };
 
-// Simplify sending transmission and response handling using the SparkPost Node SDK Transmission request
-client.transmissions.send(txObject, txResponseHandler);
+  // Simplify sending transmission and response handling using the SparkPost Node SDK Transmission request
+  client.transmissions.send(txObject, txResponseHandler);
 }
 
 function sendReminderEmails(boards) {
