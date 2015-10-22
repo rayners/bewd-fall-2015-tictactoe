@@ -9,10 +9,10 @@ roles.use('access admin page', function(req) {
   return req.currentUser && req.currentUser.username === 'rayners';
 });
 
-// roles.use('play game', function(req) {
-//   return req.board && req.currentUser
-//     && ((req.board.xPlayerId === req.currentUser.id) ||
-//         (req.board.oPlayerId === req.currentUser.id))
-// });
+roles.use('play game', function(req) {
+  return req.board && req.currentUser
+    && ((req.board.xPlayerId === req.currentUser.id) ||
+        (req.board.oPlayerId === req.currentUser.id))
+});
 
 module.exports = roles;

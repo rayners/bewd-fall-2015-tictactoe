@@ -15,4 +15,8 @@ router.get('/usernameExists', function(req, res) {
     });
 });
 
+router.get('/verify', function(req, res) {
+  // stuff here
+});
+
 module.exports = router;

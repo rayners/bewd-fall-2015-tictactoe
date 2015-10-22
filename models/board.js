@@ -36,6 +36,15 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     scopes: {
+      stale: function() {
+        return {
+          where: {
+            updatedAt: {
+              $lt: new Date((new Date()) - 24 * 60 * 60 * 1000 * 2)
+            }
+          }
+        };
+      },
       withUsers: function() {
         return {
           include: [
