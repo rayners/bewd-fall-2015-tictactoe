@@ -33,6 +33,9 @@ module.exports = function(sequelize, DataTypes) {
     instanceMethods: {
       isOpenForJoining: function() {
         return !this.xPlayerId || !this.oPlayerId;
+      },
+      isPlayer: function(user) {
+        return this.xPlayerId == user.id || this.oPlayerId == user.id;
       }
     },
     scopes: {

@@ -15,8 +15,7 @@ roles.use('verified user', function(req) {
 
 roles.use('play game', function(req) {
   return req.board && req.currentUser
-    && ((req.board.xPlayerId === req.currentUser.id) ||
-        (req.board.oPlayerId === req.currentUser.id))
+    && req.board.isPlayer(req.currentUser);
 });
 
 module.exports = roles;
