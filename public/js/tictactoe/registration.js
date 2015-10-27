@@ -4,6 +4,7 @@
     .directive('uniqueUsername', function($http, $q) {
       return {
         require: 'ngModel',
+        restrict: 'A',
         link: function(scope, element, attrs, ctrl) {
           ctrl.$asyncValidators.uniqueUsername = function(modelValue, viewValue) {
             return $q(function(resolve, reject) {

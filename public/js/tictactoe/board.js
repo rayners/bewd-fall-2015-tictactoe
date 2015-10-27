@@ -13,6 +13,9 @@ angular.module('bewd.tictactoe.board').
       },
       restrict: 'E',
       templateUrl: '/public/tmpls/board.html',
+      // template: function() {
+      //   return "/games/" + id + ".html";
+      // },
       controller: 'BoardCtrl',
       controllerAs: 'vm',
       bindToController: true
@@ -23,6 +26,7 @@ angular.module('bewd.tictactoe.board').
   factory('boardService', ['$http', function($http) {
     return {
       getBoards: function() {
+        // AJAX Request!
         return $http.get('/games').
           then(function(response) {
             return response.data;
@@ -40,6 +44,8 @@ angular.module('bewd.tictactoe.board').
             return response.data;
           });
       }
+      // updateBoard7 = _.curry(updateBoard, 7);
+      // updateBoard7(board);
     };
   }]).
   controller('BoardsController', BoardsController);
@@ -72,3 +78,11 @@ angular.module('bewd.tictactoe.board').
     loadBoards();
     $interval(loadBoards, 10000);
   }
+
+angular.module('bewd.tictactoe.board')
+  .controller('BoardController', function(boardService, $routeParams) {
+    var vm = this;
+    boardService.getBoard($routeParams.id).then(function(board) {
+      vm.theBoard = board.board;
+    });
+  })
