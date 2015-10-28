@@ -22,6 +22,7 @@
     "express-session": "^1.11.3",
     "flash": "^1.1.0",
     "jade": "^1.11.0",
+    "karma-chai": "^0.1.0",
     "lodash": "^3.10.1",
     "morgan": "^1.6.1",
     "pg": "^4.4.3",
@@ -32,7 +33,17 @@
     "sqlite3": "^3.1.0"
   },
   "devDependencies": {
+    "chai": "^3.4.0",
     "gulp": "^3.9.0",
-    "gulp-live-server": "0.0.28"
+    "gulp-live-server": "0.0.28",
+    "karma": "^0.13.14",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-coverage": "^0.5.3",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-safari-launcher": "^0.1.1",
+    "mocha": "^2.3.3",
+    "phantomjs": "^1.9.18"
   }
 }
