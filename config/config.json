@@ -4,6 +4,7 @@
         "dialect": "sqlite"
     },
     "test": {
+        "storage": "store/test.db",
         "dialect": "sqlite"
     },
     "production": {

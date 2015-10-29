@@ -27,6 +27,7 @@
     "morgan": "^1.6.1",
     "pg": "^4.4.3",
     "pg-hstore": "^2.3.2",
+    "protractor-http-mock": "^0.1.18",
     "sequelize": "^3.9.0",
     "sequelize-cli": "^1.9.1",
     "sparkpost": "^1.1.0",
@@ -44,6 +45,7 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
     "mocha": "^2.3.3",
-    "phantomjs": "^1.9.18"
+    "phantomjs": "^1.9.18",
+    "protractor": "^2.5.1"
   }
 }
