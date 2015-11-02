@@ -1,5 +1,5 @@
 var express = require('express');
-var app = express();
+var app = exports.app = express();
 
 // configuration from Heroku
 app.set('port', process.env.PORT || 3000);
@@ -26,25 +26,26 @@ if (process.env.REDIS_URL) {
     resave: false
   }));
 } else {
-  var Sequelize = require('sequelize');
-  var SequelizeStore = require('connect-session-sequelize')(session.Store);
+  // var Sequelize = require('sequelize');
+  // var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-  var sequelize = new Sequelize(
-    "database",
-    "username",
-    "password", {
-      "dialect": "sqlite",
-      "storage": "./store/session.sqlite"
-    });
+  // var sequelize = new Sequelize(
+  //   "database",
+  //   "username",
+  //   "password", {
+  //     "dialect": "sqlite",
+  //     "storage": "./store/session.sqlite"
+  //   });
 
-  var store = new SequelizeStore({ db: sequelize });
-  store.sync();
-  app.use(session({
-    saveUninitialized: false,
-    resave: false,
-    secret: 'I see dead people',
-    store: store
-  }));
+  // var store = new SequelizeStore({ db: sequelize });
+  // store.sync();
+  // app.use(session({
+  //   saveUninitialized: false,
+  //   resave: false,
+  //   secret: 'I see dead people',
+  //   store: store
+    // }));
+    app.use(session({ secret: 'abc' }));
 }
 
 app.use(require('flash')());
@@ -53,11 +54,13 @@ app.use(require('morgan')('dev'));
 
 app.set('view engine', 'jade');
 
-app.use(require('./routes'))
+app.use(require('./routes'));
 
-var server = app.listen(app.get('port'), function() {
-  var host = server.address().address;
-  var port = server.address().port;
+if (process.env.NODE_ENV !== 'test') {
+  var server = exports.server = app.listen(app.get('port'), function() {
+    var host = server.address().address;
+    var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
-});
+    console.log('Example app listening at http://%s:%s', host, port);
+  });
+}
