@@ -1,6 +1,8 @@
 var gulp = require('gulp'),
     gls = require('gulp-live-server');
 
+var srcFiles = ['index.js', 'models/*.js', 'routes.js', 'routes/*.js'];
+
 gulp.task('myTask', function() {
     console.log("Running my task!");
 });
@@ -10,7 +12,7 @@ gulp.task('server', function() {
     server.start().then(function(result) {
         console.log('Server exited with result:', result);
     });
-    return gulp.watch(['index.js', 'models/*.js', 'routes.js', 'routes/*.js'], function(file) {
+    return gulp.watch(srcFiles, function(file) {
         console.log(file);
         server.start.apply(server);
     });
@@ -31,7 +33,7 @@ gulp.task('test:backend', function() {
 });
 
 gulp.task('watch:test:backend', function() {
-    return gulp.watch(['index.js', 'test/back-end/**/*.js'], { read: false }, ['test:backend']);
+    return gulp.watch(srcFiles.concat(['test/back-end/**/*.js']), { read: false }, ['test:backend']);
 });
 
 gulp.task('watch:test:frontend', function(done) {
