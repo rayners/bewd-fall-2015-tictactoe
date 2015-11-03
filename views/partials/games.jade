@@ -1,0 +1,4 @@
+div
+  ul
+    li(ng-repeat="board in boards.boards track by board.id")
+      a(href="#/game/{{ board.id }}") Game {{ '#' + board.id }}

@@ -9,7 +9,11 @@
         controllerAs: 'vm',
         bindToController: true
       });
-      $routeProvider.when('/games', {});
+      $routeProvider.when('/games', {
+        templateUrl: '/partials/games',
+        controller: 'BoardsController',
+        controllerAs: 'boards'
+      });
       $routeProvider.when('/game/wacky', {
         templateUrl: '/public/tmpls/board.html',
         controller: 'BoardController',
