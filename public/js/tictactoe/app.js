@@ -6,7 +6,8 @@
       $routeProvider.when('/login', {
         templateUrl: '/partials/login',
         controller: 'LoginController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        bindToController: true
       });
       $routeProvider.when('/game/wacky', {
         templateUrl: '/public/tmpls/board.html',
@@ -31,7 +32,7 @@
         }
       });
     })
-    .run(function($rootScope, $location) {
+    .run(function($rootScope) {
       $rootScope.$on('$routeChangeStart', function(event, next, current) {
         console.log(next);
       });
@@ -39,5 +40,22 @@
         //   event.preventDefault();
         //   $location.path('/games');
         // }
+    });
+
+    angular.module('bewd.tictactoe')
+    .controller('LoginController', function($http, $location, $rootScope) {
+      var vm = this;
+      vm.tryToLogin = tryToLogin;
+
+      function tryToLogin() {
+        $http.post('/login', { username: vm.username, password: vm.password })
+          .then(function() {
+            $rootScope.isLoggedIn = true;
+            $location.path('/games');
+          })
+          .catch(function(response) {
+            console.log(response.data.errors);
+          });
+      }
     });
 })();

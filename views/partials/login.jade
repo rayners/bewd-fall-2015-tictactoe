@@ -1,8 +1,8 @@
-form(name="login", method="post", action="/login")
+form(name="vm.login", ng-submit="vm.tryToLogin()")
   .form-group
     label.control-label Username
-    input.form-control(type="text", name="username")
+    input.form-control(type="text", name="username", ng-model="vm.username")
   .form-group
     label.control-label Password
-    input.form-control(type="password", name="password")
+    input.form-control(type="password", name="password", ng-model="vm.password")
   button.btn.btn-default(type="submit") Login!

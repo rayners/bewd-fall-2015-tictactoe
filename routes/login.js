@@ -56,7 +56,7 @@ app.post('/', function(req, res) {
             });
           },
           json: function() {
-            res.json({ success: false, errors: [warning]})
+            res.status(404).json({ success: false, errors: [warning]})
           }
         })
       }
