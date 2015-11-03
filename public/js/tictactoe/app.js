@@ -9,6 +9,7 @@
         controllerAs: 'vm',
         bindToController: true
       });
+      $routeProvider.when('/games', {});
       $routeProvider.when('/game/wacky', {
         templateUrl: '/public/tmpls/board.html',
         controller: 'BoardController',
@@ -43,19 +44,19 @@
     });
 
     angular.module('bewd.tictactoe')
-    .controller('LoginController', function($http, $location, $rootScope) {
-      var vm = this;
-      vm.tryToLogin = tryToLogin;
+      .controller('LoginController', function($http, $location, $rootScope) {
+        var vm = this;
+        vm.tryToLogin = tryToLogin;
 
-      function tryToLogin() {
-        $http.post('/login', { username: vm.username, password: vm.password })
-          .then(function() {
-            $rootScope.isLoggedIn = true;
-            $location.path('/games');
-          })
-          .catch(function(response) {
-            console.log(response.data.errors);
-          });
-      }
-    });
+        function tryToLogin() {
+          $http.post('/login', { username: vm.username, password: vm.password })
+            .then(function() {
+              $rootScope.isLoggedIn = true;
+              $location.path('/games');
+            })
+            .catch(function(response) {
+              console.log(response.data.errors);
+            });
+        }
+      });
 })();
