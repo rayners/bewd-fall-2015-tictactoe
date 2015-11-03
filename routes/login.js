@@ -17,24 +17,48 @@ app.get('/', function(req, res) {
 app.post('/', function(req, res) {
   User.find({ where: { username: req.body.username }})
     .then(function(user) {
+      var warning;
       if (user) {
         if (user.password === req.body.password) {
           req.session.user_id = user.id;
-          req.flash('success', "Logged in!");
           req.session.save(function() {
-            res.redirect('/games')
+            res.format({
+              html: function() {
+                req.flash('success', "Logged in!");
+                res.redirect('/games')
+              },
+              json: function() {
+                res.json({ success: true, message: 'Loggin in!' });
+              }
+            })
           });
         } else { // user.password === req.body.password
-          req.flash('warning', 'Bad password. Try ' + user.password + ' instead.');
-          req.session.save(function() {
-            res.redirect('/login');
-          });
+          warning = 'Bad password. Try ' + user.password + ' instead.'
+          res.format({
+            html: function() {
+              req.flash('warning', warning);
+              req.session.save(function() {
+                res.redirect('/login');
+              });
+            },
+            json: function() {
+              res.json({ success: false, errors: [warning]});
+            }
+          })
         }
       } else { // user
-        req.flash('warning', 'Username unknown');
-        req.session.save(function() {
-          res.redirect('/login');
-        });
+        warning = 'Username unknown';
+        res.format({
+          html: function() {
+            req.flash('warning', warning);
+            req.session.save(function() {
+              res.redirect('/login');
+            });
+          },
+          json: function() {
+            res.json({ success: false, errors: [warning]})
+          }
+        })
       }
     });
 });

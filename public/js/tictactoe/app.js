@@ -4,7 +4,9 @@
     ['bewd.tictactoe.board', 'bewd.tictactoe.registration', 'ngRoute'])
     .config(function($routeProvider) {
       $routeProvider.when('/login', {
-        templateUrl: '/partials/login'
+        templateUrl: '/partials/login',
+        controller: 'LoginController',
+        controllerAs: 'vm'
       });
       $routeProvider.when('/game/wacky', {
         templateUrl: '/public/tmpls/board.html',
@@ -29,9 +31,13 @@
         }
       });
     })
-    .run(function($rootScope) {
-      $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
-        alert(rejection.data);
-      })
+    .run(function($rootScope, $location) {
+      $rootScope.$on('$routeChangeStart', function(event, next, current) {
+        console.log(next);
+      });
+        // if (going_to_login_and_already_logged_in)
+        //   event.preventDefault();
+        //   $location.path('/games');
+        // }
     });
 })();
