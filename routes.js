@@ -72,4 +72,8 @@ app.post('/register', function(req, res) {
     });
 });
 
+app.get('/partials/:name', function(req, res) {
+  res.render('partials/' + req.params.name);
+});
+
 module.exports = app;

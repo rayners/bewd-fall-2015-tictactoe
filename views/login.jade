@@ -4,11 +4,4 @@ block title
   title Login to Tic Tac Toe!
   
 block content
-  form(name="login", method="post", action="/login")
-    .form-group
-      label Username
-      input.form-control(type="text", name="username")
-    .form-group
-      label Password
-      input.form-control(type="password", name="password")
-    button.btn.btn-default(type="submit") Login!
+  include ./partials/login.jade

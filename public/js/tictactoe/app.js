@@ -3,6 +3,9 @@
   angular.module('bewd.tictactoe',
     ['bewd.tictactoe.board', 'bewd.tictactoe.registration', 'ngRoute'])
     .config(function($routeProvider) {
+      $routeProvider.when('/login', {
+        templateUrl: '/partials/login'
+      });
       $routeProvider.when('/game/wacky', {
         templateUrl: '/public/tmpls/board.html',
         controller: 'BoardController',
@@ -25,6 +28,10 @@
           }
         }
       });
+    })
+    .run(function($rootScope) {
+      $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
+        alert(rejection.data);
+      })
     });
-
 })();
