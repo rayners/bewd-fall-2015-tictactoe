@@ -13,9 +13,6 @@ angular.module('bewd.tictactoe.board').
       },
       restrict: 'E',
       templateUrl: '/public/tmpls/board.html',
-      // template: function() {
-      //   return "/games/" + id + ".html";
-      // },
       controller: 'BoardCtrl',
       controllerAs: 'vm',
       bindToController: true
@@ -44,8 +41,6 @@ angular.module('bewd.tictactoe.board').
             return response.data;
           });
       }
-      // updateBoard7 = _.curry(updateBoard, 7);
-      // updateBoard7(board);
     };
   }]).
   controller('BoardsController', BoardsController);
