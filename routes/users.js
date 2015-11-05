@@ -3,10 +3,9 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models').user;
-var _ = require('lodash');
 
 router.get('/', function(req, res) {
-  User.findAll({ attributes: ['id', 'username', 'email' ]}).then(function(users) {
+  User.findAll({ attributes: ['id', 'username', 'email' ], limit: 5, offset: 0 }).then(function(users) {
     res.json({ users: users });
   });
 });

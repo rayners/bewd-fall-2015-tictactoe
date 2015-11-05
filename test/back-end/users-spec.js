@@ -58,6 +58,23 @@ describe('users list', function() {
           res.body.users.should.have.length(5);
           done();
         });
-    })
+    });
+  });
+
+  it('should return the next five users after the initial five', function(done) {
+    var user = require('../../models').user;
+    user.bulkCreate(_.map(_.times(10), function(i) {
+      return { username: 'user' + i, password: 'password' + i, email: 'user' + i + '@gmail.web' };
+    })).then(function(users) {
+      users.should.have.length(10);
+      request(app)
+        .get('/users')
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          res.body.users.should.have.length(5);
+          res.body.users[0].username.should.equal('user5');
+          done();
+        });
+      });
   });
 });
