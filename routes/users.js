@@ -4,6 +4,10 @@ var router = express.Router();
 
 var User = require('../models').user;
 
+router.get('/', function(req, res) {
+  res.json({ users: [] });
+});
+
 router.get('/usernameExists', function(req, res) {
   User.findOne({ where: { username: req.query.username }})
     .then(function(user) {
@@ -13,10 +17,6 @@ router.get('/usernameExists', function(req, res) {
         res.json(false);
       }
     });
-});
-
-router.get('/verify', function(req, res) {
-  // stuff here
 });
 
 module.exports = router;

@@ -10,9 +10,3 @@ beforeEach(function(done) {
             return done();
         });
 });
-
-// afterEach(function(done) {
-//     console.log('afterEach!!!');
-//     console.log(thi);
-//     done();
-// });
