@@ -5,9 +5,11 @@ var router = express.Router();
 var User = require('../models').user;
 
 router.get('/', function(req, res) {
-  User.findAll({ attributes: ['id', 'username', 'email' ], limit: 5, offset: 0 }).then(function(users) {
-    res.json({ users: users });
-  });
+  var page = req.query.page || 1;
+  User.findAll({ attributes: ['id', 'username', 'email' ], limit: 5, offset: (page - 1) * 5 })
+    .then(function(users) {
+      res.json({ users: users });
+    });
 });
 
 router.get('/usernameExists', function(req, res) {

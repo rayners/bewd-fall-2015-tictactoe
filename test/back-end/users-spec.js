@@ -56,12 +56,13 @@ describe('users list', function() {
         .set('Accept', 'application/json')
         .end(function(err, res) {
           res.body.users.should.have.length(5);
+          res.body.users[0].username.should.equal('user0');
           done();
         });
     });
   });
 
-  it('should return the next five users after the initial five', function(done) {
+  it('should return the next five users after the initial five (page=2)', function(done) {
     var user = require('../../models').user;
     user.bulkCreate(_.map(_.times(10), function(i) {
       return { username: 'user' + i, password: 'password' + i, email: 'user' + i + '@gmail.web' };
@@ -69,10 +70,29 @@ describe('users list', function() {
       users.should.have.length(10);
       request(app)
         .get('/users')
+        .query({ page: 2 })
         .set('Accept', 'application/json')
         .end(function(err, res) {
           res.body.users.should.have.length(5);
           res.body.users[0].username.should.equal('user5');
+          done();
+        });
+      });
+  });
+
+  it('should not fail in this case', function(done) {
+    var user = require('../../models').user;
+    user.bulkCreate(_.map(_.times(10), function(i) {
+      return { username: 'user' + i, password: 'password' + i, email: 'user' + i + '@gmail.web' };
+    })).then(function(users) {
+      users.should.have.length(10);
+      request(app)
+        .get('/users')
+        .query({ page: -1 })
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          res.body.users.should.have.length(5);
+          res.body.users[0].username.should.equal('user0');
           done();
         });
       });
