@@ -3,6 +3,8 @@ var request = require('supertest'),
     should = require('chai').should(),
     app = require('../../index').app;
 
+var _ = require('lodash');
+
 describe('users list', function() {
   it('should list users', function(done) {
     request(app)
@@ -34,12 +36,28 @@ describe('users list', function() {
     user.bulkCreate([
       { username: 'user1', password: 'mypassword', email: 'user1@mysite.com' },
       { username: 'user2', password: 'nottelling', email: 'user2@gmail.web' }
-    ]).then(function(users) {
+    ]).then(function() {
       request(app)
         .get('/users')
         .set('Accept', 'application/json')
         .expect({ users: [ { id: 1, username: 'user1', email: 'user1@mysite.com' },
                            { id: 2, username: 'user2', email: 'user2@gmail.web'  } ]}, done);
     });
+  });
+
+  it('should return five users when there are six', function(done) {
+    var user = require('../../models').user;
+    user.bulkCreate(_.map(_.times(6), function(i) {
+      return { username: 'user' + i, password: 'password' + i, email: 'user' + i + '@gmail.web' };
+    })).then(function(users) {
+      users.should.have.length(6);
+      request(app)
+        .get('/users')
+        .set('Accept', 'application/json')
+        .end(function(err, res) {
+          res.body.users.should.have.length(5);
+          done();
+        });
+    })
   });
 });
