@@ -19,6 +19,7 @@ describe('index page', function() {
             .set('Accept', 'text/html')
             .end(function(err, res) {
                 res.text.should.include('ng-view');
+                //res.body.users[0].createdAt.should.be.instanceOf(Date);
                 done();
             });
     });

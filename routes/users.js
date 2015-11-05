@@ -3,9 +3,12 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models').user;
+var _ = require('lodash');
 
 router.get('/', function(req, res) {
-  res.json({ users: [] });
+  User.findAll({ attributes: ['id', 'username', 'email' ]}).then(function(users) {
+    res.json({ users: users });
+  });
 });
 
 router.get('/usernameExists', function(req, res) {
