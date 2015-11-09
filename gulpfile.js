@@ -26,10 +26,20 @@ gulp.task('test:frontend', function(done) {
     }, done).start();
 });
 
-var mocha = require('gulp-mocha');
-gulp.task('test:backend', function() {
+
+var mocha = require('gulp-mocha'),
+    istanbul = require('gulp-istanbul');
+
+gulp.task('test:backend:pre', function() {
+    return gulp.src(srcFiles)
+        .pipe(istanbul())
+        .pipe(istanbul.hookRequire());
+});
+
+gulp.task('test:backend', ['test:backend:pre'], function() {
     return gulp.src('test/back-end/**/*.js', { read: false })
-        .pipe(mocha());
+        .pipe(mocha())
+        .pipe(istanbul.writeReports());
 });
 
 gulp.task('watch:test:backend', function() {
