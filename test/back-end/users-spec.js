@@ -17,7 +17,7 @@ describe('users list', function() {
     request(app)
       .get('/users')
       .set('Accept', 'application/json')
-      .expect({ users: [] }, done);
+      .expect({ users: [], total: 0 }, done);
   });
 
   it('should return a single user when there is only one', function(done) {
@@ -27,7 +27,7 @@ describe('users list', function() {
         request(app)
           .get('/users')
           .set('Accept', 'application/json')
-          .expect({ users: [ { id: u.id, username: 'abc123', email: 'user@example.com' } ] }, done);
+          .expect({ users: [ { id: u.id, username: 'abc123', email: 'user@example.com' } ], total: 1 }, done);
       });
   });
 
@@ -41,7 +41,8 @@ describe('users list', function() {
         .get('/users')
         .set('Accept', 'application/json')
         .expect({ users: [ { id: 1, username: 'user1', email: 'user1@mysite.com' },
-                           { id: 2, username: 'user2', email: 'user2@gmail.web'  } ]}, done);
+                           { id: 2, username: 'user2', email: 'user2@gmail.web'  } ],
+                  total: 2 }, done);
     });
   });
 
@@ -57,6 +58,7 @@ describe('users list', function() {
         .end(function(err, res) {
           res.body.users.should.have.length(5);
           res.body.users[0].username.should.equal('user0');
+          res.body.total.should.equal(6);
           done();
         });
     });
@@ -75,6 +77,7 @@ describe('users list', function() {
         .end(function(err, res) {
           res.body.users.should.have.length(5);
           res.body.users[0].username.should.equal('user5');
+          res.body.total.should.equal(10);
           done();
         });
       });

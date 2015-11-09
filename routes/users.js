@@ -6,9 +6,10 @@ var User = require('../models').user;
 
 router.get('/', function(req, res) {
   var page = req.query.page || 1;
-  User.findAll({ attributes: ['id', 'username', 'email' ], limit: 5, offset: (page - 1) * 5 })
-    .then(function(users) {
-      res.json({ users: users });
+  User.findAndCount({ attributes: ['id', 'username', 'email' ], limit: 5, offset: (page - 1) * 5 })
+    .then(function(results) {
+      var users = results.rows;
+      res.json({ total: results.count, users: users });
     });
 });
 
