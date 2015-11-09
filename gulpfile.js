@@ -33,6 +33,7 @@ gulp.task('test:backend', function() {
 });
 
 gulp.task('watch:test:backend', function() {
+    gulp.run('test:backend');
     return gulp.watch(srcFiles.concat(['test/back-end/**/*.js']), ['test:backend']);
 });
 
