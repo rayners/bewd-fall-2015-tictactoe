@@ -29,6 +29,7 @@ describe('user registration', function() {
   });
 
   it('should not allow a user to register for a user name that exists', function(done) {
+    
     // ...
     done();
   })

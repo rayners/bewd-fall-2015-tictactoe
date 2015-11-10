@@ -38,7 +38,7 @@ app.post('/', function(req, res) {
             html: function() {
               req.flash('warning', warning);
               req.session.save(function() {
-                res.redirect('/login');
+                res.render('login');
               });
             },
             json: function() {
@@ -52,7 +52,7 @@ app.post('/', function(req, res) {
           html: function() {
             req.flash('warning', warning);
             req.session.save(function() {
-              res.redirect('/login');
+              res.render('login');
             });
           },
           json: function() {
