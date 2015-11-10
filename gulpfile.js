@@ -53,4 +53,16 @@ gulp.task('watch:test:frontend', function(done) {
     }, done).start();
 });
 
+var webFiles = ['js/**/*.js'];
+var concat = require('gulp-concat'),
+  ngAnnotate = require('gulp-ng-annotate'),
+  uglify = require('gulp-uglify');
+gulp.task('build', function() {
+  return gulp.src(webFiles)
+    .pipe(concat('tictactoe.js'))
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(gulp.dest('public/dist'));
+});
+
 gulp.task('default', ['server']);

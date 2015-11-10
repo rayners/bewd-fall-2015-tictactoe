@@ -101,3 +101,31 @@ describe('users list', function() {
       });
   });
 });
+
+describe('/usernameExists', function() {
+  it('should be false when there are no users', function(done) {
+    request(app)
+      .get('/users/usernameExists')
+      .query({ username: "abc123"})
+      .set('Accept', 'application/json')
+      .expect('false', done);
+  });
+
+  describe('when there is a user in the system', function() {
+    beforeEach(function(done) {
+        require('../../models').user
+          .create({ username: 'abc123' })
+          .then(_.ary(done, 0));
+    });
+
+    it('should return true if that user is requested', function(done) {
+      request(app)
+        .get('/users/usernameExists')
+        .query({ username: 'abc123' })
+        .set('Accept', 'application/json')
+        .expect("true", done);
+    })
+
+  });
+
+})
