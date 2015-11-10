@@ -18,7 +18,7 @@ describe('user registration', function() {
     request(app)
       .post('/register')
       .send({ username: 'abc123', password: 'Secrets' })
-      .expect(302)
+      .expect(302) // successful post means a redirect
       .end(function(err, res) {
         require('../../models').user.findOne({ username: 'abc123' })
           .then(function(user) {
@@ -27,4 +27,9 @@ describe('user registration', function() {
           })
       });
   });
+
+  it('should not allow a user to register for a user name that exists', function(done) {
+    // ...
+    done();
+  })
 });
