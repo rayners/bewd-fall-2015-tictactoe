@@ -79,5 +79,7 @@ angular.module('bewd.tictactoe.board').
   }
 
 angular.module('bewd.tictactoe.board')
-  .controller('BoardController', require('./board.ctrl.js'));
+  .controller('BoardController', function(boardObj) {
+    this.theBoard = boardObj.board;
+  });
 })();

@@ -2,7 +2,8 @@
 
   angular.module('bewd.tictactoe',
     ['bewd.tictactoe.board', 'bewd.tictactoe.registration', 'ngRoute'])
-    .config(function($routeProvider) {
+    .config(function($locationProvider, $routeProvider) {
+      // $locationProvider.html5Mode(true);
       $routeProvider.when('/login', {
         templateUrl: '/partials/login',
         controller: 'LoginController',
@@ -36,6 +37,7 @@
           }
         }
       });
+      $routeProvider.otherwise('/games')
     })
     .run(function($rootScope) {
       $rootScope.$on('$routeChangeStart', function(event, next, current) {
