@@ -3,7 +3,7 @@
   angular.module('bewd.tictactoe',
     ['bewd.tictactoe.board', 'bewd.tictactoe.registration', 'ngRoute'])
     .config(function($locationProvider, $routeProvider) {
-      // $locationProvider.html5Mode(true);
+      $locationProvider.html5Mode(true);
       $routeProvider.when('/login', {
         templateUrl: '/partials/login',
         controller: 'LoginController',
@@ -27,7 +27,7 @@
           }
         }
       });
-      $routeProvider.when('/game/:id', {
+      $routeProvider.when('/games/:id', {
         templateUrl: '/public/tmpls/board.html',
         controller: 'BoardController',
         controllerAs: 'vm',
@@ -66,3 +66,6 @@
         }
       });
 })();
+
+
+// log(in|out)
