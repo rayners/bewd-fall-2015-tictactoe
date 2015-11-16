@@ -4,6 +4,7 @@
         "dialect": "sqlite"
     },
     "test": {
+        "logging": false,
         "storage": "store/test.db",
         "dialect": "sqlite"
     },
