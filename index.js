@@ -53,6 +53,9 @@ app.use(require('flash')());
 app.use(require('morgan')('dev'));
 
 app.set('view engine', 'jade');
+if (app.get('env') === 'development') {
+  app.locals.pretty = true;
+}
 
 app.use(require('./routes'));
 
