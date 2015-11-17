@@ -83,4 +83,13 @@ app.get('/partials/:name', function(req, res) {
   res.render('partials/' + req.params.name);
 });
 
+require('./routes/uploadManager')(app);
+app.get('/upload-manager', function(req, res) {
+  res.render('uploadManager');
+});
+
+app.get('/*', function(req, res) {
+  res.render('index');
+});
+
 module.exports = app;
