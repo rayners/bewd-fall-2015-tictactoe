@@ -26,67 +26,11 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-app.get('/game', function(req, res) {
-  var playerName = req.session.playerName;
-  res.render('game', { username: playerName });
-});
-
-app.post('/game', function(req, res) {
-  req.session.playerName = req.body.username;
-  req.session.save(function() {
-    res.redirect('/game');
-  });
-});
-
 var models = require('./models');
-
-app.use('/games', require('./routes/games'));
 
 app.use('/users', require('./routes/users'));
 app.use('/login', require('./routes/login'));
 app.use('/admin', require('./routes/admin'));
-
-// User registration
-app.get('/register', function(req, res) {
-  res.render('register');
-});
-
-app.post('/register', function(req, res) {
-  if (!req.body.password) {
-    req.flash('warning', 'Password required');
-    req.session.save(function() {
-      res.render('register');
-    });
-  } else {
-    // Does the user exist already?
-    models.user.find({ where: { username: req.body.username }})
-      .then(function(user) {
-          if (user) {
-            req.flash('warning', "Username already exists");
-            req.session.save(function() {
-              res.redirect('/register');
-            });
-          } else {
-            models.user.create(req.body)
-              .then(function(newUser) {
-                req.session.user_id = newUser.id;
-                req.session.save(function() {
-                  res.redirect('/games');
-                });
-              });
-          }
-      });
-  }
-});
-
-app.get('/partials/:name', function(req, res) {
-  res.render('partials/' + req.params.name);
-});
-
-require('./routes/uploadManager')(app);
-app.get('/upload-manager', function(req, res) {
-  res.render('uploadManager');
-});
 
 app.get('/*', function(req, res) {
   res.render('index');

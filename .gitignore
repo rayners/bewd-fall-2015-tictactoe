@@ -1,6 +1,8 @@
 node_modules
 bower_components
 npm-debug.log
-store
+store/*
 coverage
-public/dist
+public/dist/*
+public/uploaded/files/*
+public/uploaded/tmp/*

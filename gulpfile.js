@@ -59,7 +59,7 @@ var concat = require('gulp-concat'),
   uglify = require('gulp-uglify');
 gulp.task('build', function() {
   return gulp.src(webFiles)
-    .pipe(concat('tictactoe.js'))
+    .pipe(concat('app.js'))
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(gulp.dest('public/dist'));

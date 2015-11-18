@@ -10,34 +10,6 @@
         controllerAs: 'vm',
         bindToController: true
       });
-      $routeProvider.when('/games', {
-        templateUrl: '/partials/games',
-        controller: 'BoardsController',
-        controllerAs: 'boards'
-      });
-      $routeProvider.when('/game/wacky', {
-        templateUrl: '/public/tmpls/board.html',
-        controller: 'BoardController',
-        controllerAs: 'vm',
-        resolve: {
-          boardObj: function() {
-            return {
-              board: [['A', 'B', 'C'], ['D', 'E', 'F'], ['X', 'Y', 'Z']]
-            }
-          }
-        }
-      });
-      $routeProvider.when('/games/:id', {
-        templateUrl: '/public/tmpls/board.html',
-        controller: 'BoardController',
-        controllerAs: 'vm',
-        resolve: {
-          boardObj: function($route, boardService) {
-            return boardService.getBoard($route.current.params.id);
-          }
-        }
-      });
-      $routeProvider.otherwise('/games')
     })
     .run(function($rootScope) {
       $rootScope.$on('$routeChangeStart', function(event, next, current) {

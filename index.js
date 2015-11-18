@@ -21,7 +21,7 @@ if (process.env.REDIS_URL) {
 
   app.use(session({
     store: new RedisStore({ url: process.env.REDIS_URL }),
-    secret: 'I see undead people',
+    secret: '', // TODO: Set a secret
     saveUninitialized: false,
     resave: false
   }));
@@ -64,6 +64,6 @@ if (process.env.NODE_ENV !== 'test') {
     var host = server.address().address;
     var port = server.address().port;
 
-    console.log('Example app listening at http://%s:%s', host, port);
+    console.log('App listening at http://%s:%s', host, port);
   });
 }
